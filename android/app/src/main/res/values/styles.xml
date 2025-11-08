@@ -1,0 +1,5 @@
+<resources>
+    <!-- Default App Theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.AppCompat.Light.NoActionBar" />
+</resources>

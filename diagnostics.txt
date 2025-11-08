@@ -1,0 +1,344 @@
+=== 🔍 Build Diagnostics for Run ID: 19125880965 ===
+
+>> General Failures:
+build	Clean and Build APK	2025-11-06T05:34:23.5432778Z FAILURE: Build failed with an exception.
+build	Clean and Build APK	2025-11-06T05:34:23.6406949Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.6409232Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.6564558Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.7101664Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7103786Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.7158704Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.7489891Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7492385Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.7532991Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.7904308Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7906574Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.8085866Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.8755536Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.8757669Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.8798430Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9149584Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9151897Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9191567Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9452195Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9453341Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9474017Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9596810Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9597940Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9618602Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9810139Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9812203Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9852432Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9932758Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9933313Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9943320Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0004131Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0004686Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0014758Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0074193Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0074865Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0084716Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0144542Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0145095Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0155042Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+
+>> What went wrong:
+build	Clean and Build APK	2025-11-06T05:34:23.5435144Z * What went wrong:
+build	Clean and Build APK	2025-11-06T05:34:23.5435686Z Failed to notify build listener.
+build	Clean and Build APK	2025-11-06T05:34:23.5436714Z > Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5437997Z > Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5439371Z > Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5502583Z > Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5504338Z > Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5505731Z > Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5506982Z > Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5508147Z > Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5509385Z > Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5510852Z > Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5512499Z > Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5513785Z > Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5514447Z 
+build	Clean and Build APK	2025-11-06T05:34:23.5514645Z * Try:
+build	Clean and Build APK	2025-11-06T05:34:23.5516831Z > Run with --info or --debug option to get more log output.
+build	Clean and Build APK	2025-11-06T05:34:23.5517896Z > Run with --scan to get full insights.
+build	Clean and Build APK	2025-11-06T05:34:23.5518557Z > Get more help at https://help.gradle.org.
+build	Clean and Build APK	2025-11-06T05:34:23.5519647Z 
+build	Clean and Build APK	2025-11-06T05:34:23.5519900Z * Exception is:
+
+>> Java / JDK Issues:
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.1682550Z   java-package: jdk
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.3947007Z Creating toolchains.xml for JDK version 21 from temurin
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.4103715Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.9-10/x64
+build	Enforce Java 21 Globally in Gradle and Kotlin	2025-11-06T05:31:57.4274344Z [36;1m            kotlinOptions.jvmTarget = "21"[0m
+build	Enforce Java 21 Globally in Gradle and Kotlin	2025-11-06T05:31:57.4308558Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.9-10/x64
+build	Enforce Java 21 Globally in Gradle and Kotlin	2025-11-06T05:31:57.4309016Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.9-10/x64
+build	Clean and Build APK	2025-11-06T05:31:57.4444416Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.9-10/x64
+build	Clean and Build APK	2025-11-06T05:31:57.4444877Z   JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.9-10/x64
+build	Clean and Build APK	2025-11-06T05:34:23.5602754Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.6635035Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.6715202Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.6787975Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.7178004Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.7179101Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.7215839Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.7217035Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.7270549Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.7537837Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.7555735Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.7556866Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.7584414Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.7585521Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.7609751Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.8090691Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.8123241Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.8124327Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.8205322Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.8206447Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.8278991Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.8860659Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.8895571Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.8897959Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.8964204Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.8965306Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.8987698Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.9196642Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.9213626Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9214715Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9241729Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9242808Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9265726Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.9476579Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.9485736Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9486565Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9500492Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9501087Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9513285Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.9621153Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.9630235Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9630919Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9644709Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9645290Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9657230Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.9857468Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.9870039Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9870234Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9884595Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9884794Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9890725Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:23.9944430Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:23.9948886Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9949078Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9956108Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:23.9956302Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:23.9961965Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:24.0015975Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:24.0020321Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:24.0020512Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:24.0027557Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:24.0027745Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:24.0033386Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:24.0085820Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+build	Clean and Build APK	2025-11-06T05:34:24.0090453Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:24.0090638Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:24.0097450Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+build	Clean and Build APK	2025-11-06T05:34:24.0097752Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+build	Clean and Build APK	2025-11-06T05:34:24.0103492Z 	at jdk.proxy1/jdk.proxy1.$Proxy41.projectsEvaluated(Unknown Source)
+build	Clean and Build APK	2025-11-06T05:34:24.0156152Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+>> Kotlin Issues:
+build	Enforce Java 21 Globally in Gradle and Kotlin	2025-11-06T05:31:57.4273909Z [36;1m        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {[0m
+build	Enforce Java 21 Globally in Gradle and Kotlin	2025-11-06T05:31:57.4274344Z [36;1m            kotlinOptions.jvmTarget = "21"[0m
+
+>> Gradle Task Failures:
+
+>> Dependency & Plugin Problems:
+
+>> Configuration Errors:
+build	Build web app	2025-11-06T05:31:48.1174270Z - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.4085435Z Java configuration:
+build	Clean and Build APK	2025-11-06T05:32:07.7412281Z  - Parallel load and store for Configuration Cache
+build	Clean and Build APK	2025-11-06T05:34:23.5689170Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.5691263Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.5752766Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.5875089Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.6637086Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.6641738Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.6713001Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.6843864Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.6845523Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.6847428Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.6860732Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.7185542Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.7189925Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.7213775Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.7306458Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.7308114Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.7309959Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.7342847Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.7564066Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.7568575Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.7582484Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.7625497Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.7627132Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.7643435Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.7657034Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.8130582Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.8135265Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.8203263Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.8344779Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.8346305Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.8348151Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.8408283Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.8905663Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.8910761Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.8962267Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9003358Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9005231Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9007129Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9020104Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.9221143Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.9225854Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.9239362Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9282326Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9284060Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9285993Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9298845Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.9490018Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.9492452Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.9499462Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9521277Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9522265Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9523270Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9530053Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.9634403Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.9636711Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.9643702Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9665321Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9666202Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9667204Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9675420Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.9872494Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.9873785Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.9884186Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9895110Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9895600Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9896096Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9899305Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:23.9950908Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:23.9952264Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:23.9955738Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:23.9967069Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9967646Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:23.9968142Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:23.9971462Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:24.0022447Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:24.0023588Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:24.0027083Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:24.0037429Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:24.0037918Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:24.0038414Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:24.0041836Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+build	Clean and Build APK	2025-11-06T05:34:24.0092564Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.lambda$run$0(DefaultListenerBuildOperationDecorator.java:201)
+build	Clean and Build APK	2025-11-06T05:34:24.0093701Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure$1.run(DefaultListenerBuildOperationDecorator.java:198)
+build	Clean and Build APK	2025-11-06T05:34:24.0097081Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingClosure.doCall(DefaultListenerBuildOperationDecorator.java:195)
+build	Clean and Build APK	2025-11-06T05:34:24.0107417Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:24.0107904Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+build	Clean and Build APK	2025-11-06T05:34:24.0108399Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+build	Clean and Build APK	2025-11-06T05:34:24.0111924Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+
+>> Version or Compatibility Issues:
+build	Set up job	﻿2025-11-06T05:31:25.5888690Z Current runner version: '2.329.0'
+build	Set up job	2025-11-06T05:31:25.5914310Z Version: 20251016.436
+build	Set up job	2025-11-06T05:31:25.5920361Z Version: 20251030.96.2
+build	Checkout repository	2025-11-06T05:31:27.8742871Z ##[group]Getting Git version info
+build	Checkout repository	2025-11-06T05:31:27.8748722Z [command]/usr/bin/git version
+build	Checkout repository	2025-11-06T05:31:27.8849342Z git version 2.51.2
+build	Checkout repository	2025-11-06T05:31:28.0139443Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +145192b472e6fdc127427644a03f6f65379e7ba5:refs/remotes/origin/main
+build	Setup Node.js	2025-11-06T05:31:28.7347153Z   node-version: 20
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.1682369Z   java-version: 21
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.3947007Z Creating toolchains.xml for JDK version 21 from temurin
+build	Setup Java 21 (Temurin LTS)	2025-11-06T05:31:57.4102924Z   Version: 21.0.9+10
+build	Post Checkout repository	2025-11-06T05:34:24.5967179Z [command]/usr/bin/git version
+build	Post Checkout repository	2025-11-06T05:34:24.6009125Z git version 2.51.2
+
+>> Memory / Heap Errors:
+
+>> Resource or Lint Failures:
+
+>> Signing Problems:
+
+>> Stacktrace References:
+build	Clean and Build APK	﻿2025-11-06T05:31:57.4413433Z ##[group]Run ./gradlew clean assembleDebug -I ~/.gradle/init.gradle --stacktrace
+build	Clean and Build APK	2025-11-06T05:31:57.4413953Z [36;1m./gradlew clean assembleDebug -I ~/.gradle/init.gradle --stacktrace[0m
+
+>> Full Error Summary:
+build	Clean and Build APK	2025-11-06T05:32:07.7432384Z  - Java compilation errors at the end of the build output
+build	Clean and Build APK	2025-11-06T05:34:23.5432778Z FAILURE: Build failed with an exception.
+build	Clean and Build APK	2025-11-06T05:34:23.5435686Z Failed to notify build listener.
+build	Clean and Build APK	2025-11-06T05:34:23.5436714Z > Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5437997Z > Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5439371Z > Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5502583Z > Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5504338Z > Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5505731Z > Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5506982Z > Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5508147Z > Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5509385Z > Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5510852Z > Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5512499Z > Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5513785Z > Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.5519900Z * Exception is:
+build	Clean and Build APK	2025-11-06T05:34:23.5553419Z org.gradle.internal.event.ListenerNotificationException: Failed to notify build listener.
+build	Clean and Build APK	2025-11-06T05:34:23.6406949Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.6409232Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.6564558Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.6567626Z Cause 1: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.7101664Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7103786Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.7158704Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.7162105Z Cause 2: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.7489891Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7492385Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.7532991Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.7539325Z Cause 3: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.7904308Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.7906574Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.8085866Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.8092425Z Cause 4: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.8755536Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.8757669Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.8798430Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.8862393Z Cause 5: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.9149584Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9151897Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9191567Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9198059Z Cause 6: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.9452195Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9453341Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9474017Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9477337Z Cause 7: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for root project 'android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.9596810Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9597940Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9618602Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9621973Z Cause 8: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':app' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.9810139Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9812203Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9852432Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9858972Z Cause 9: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-android' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:23.9932758Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:23.9933313Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:23.9943320Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:23.9945106Z Cause 10: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-cordova-android-plugins' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:24.0004131Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0004686Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0014758Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0016569Z Cause 11: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-filesystem' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:24.0074193Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0074865Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0084716Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0086546Z Cause 12: groovy.lang.MissingPropertyException: Could not get unknown property 'org' for project ':capacitor-share' of type org.gradle.api.Project.
+build	Clean and Build APK	2025-11-06T05:34:24.0144542Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+build	Clean and Build APK	2025-11-06T05:34:24.0145095Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+build	Clean and Build APK	2025-11-06T05:34:24.0155042Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+build	Clean and Build APK	2025-11-06T05:34:24.0156273Z BUILD FAILED in 2m 25s
+build	Clean and Build APK	2025-11-06T05:34:24.2659201Z ##[error]Process completed with exit code 1.

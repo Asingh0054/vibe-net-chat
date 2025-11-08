@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+.next/
+.cache/
+*.log
+*.zip
+*.tar
+*.gz
+.env

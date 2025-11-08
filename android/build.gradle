@@ -1,0 +1,58 @@
+buildscript {
+    ext {
+        minSdkVersion = 23
+        compileSdkVersion = 35
+        targetSdkVersion = 35
+        androidxActivityVersion = '1.9.2'
+        androidxAppCompatVersion = '1.7.0'
+        androidxCoordinatorLayoutVersion = '1.2.0'
+        androidxCoreVersion = '1.15.0'
+        androidxFragmentVersion = '1.8.4'
+        coreSplashScreenVersion = '1.0.1'
+        androidxWebkitVersion = '1.12.1'
+        junitVersion = '4.13.2'
+        androidxJunitVersion = '1.2.1'
+        androidxEspressoCoreVersion = '3.6.1'
+        cordovaAndroidVersion = '10.1.1'
+
+        // ✅ Force Java 17 globally
+        javaSourceCompatibility = JavaVersion.VERSION_21
+        javaTargetCompatibility = JavaVersion.VERSION_21
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.2'
+        classpath 'com.android.tools.build:gradle:8.7.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "21"
+        }
+    }
+}
+
+subprojects {
+    afterEvaluate {
+        extensions.findByType(org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension)?.apply {
+            jvmToolchain(17)
+        }
+    }
+}

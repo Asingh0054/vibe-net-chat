@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">VibeNet Chat</string>
+    <string name="title_activity_main">VibeNet Chat</string>
+    <string name="package_name">com.asingh.vibenetchat</string>
+    <string name="custom_url_scheme">com.asingh.vibenetchat</string>
+</resources>

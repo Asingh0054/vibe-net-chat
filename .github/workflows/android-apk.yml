@@ -1,0 +1,69 @@
+name: Android APK Builder (Java 21 Clean Build)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Install Capacitor CLI
+        run: npm install -g @capacitor/cli
+
+      - name: Sync Android project
+        run: npx cap sync android
+
+      - name: Setup Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Configure Gradle environment
+        run: |
+          mkdir -p ~/.gradle
+          cat <<'PATCH' > ~/.gradle/init.gradle
+          allprojects {
+              gradle.projectsEvaluated {
+                  tasks.withType(JavaCompile) {
+                      sourceCompatibility = "21"
+                      targetCompatibility = "21"
+                  }
+                  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                      kotlinOptions.jvmTarget = "21"
+                  }
+              }
+          }
+          PATCH
+          echo "✅ Global Gradle config for Java 21 ready."
+
+      - name: Clean Gradle cache
+        working-directory: android
+        run: ./gradlew clean --no-daemon -I ~/.gradle/init.gradle || true
+
+      - name: Build Android Debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --stacktrace -I ~/.gradle/init.gradle
+
+      - name: Upload APK artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: VibeNetChat-debug
+          path: android/app/build/outputs/**/*.apk
+          if-no-files-found: warn
