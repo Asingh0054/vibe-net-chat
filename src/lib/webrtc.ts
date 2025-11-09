@@ -3,24 +3,37 @@ import SimplePeer from 'simple-peer';
 export interface PeerConnection {
   peer: SimplePeer.Instance;
   peerId: string;
+  deviceId: string;
+  peerName: string;
   connected: boolean;
+  status: 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
 }
 
 export type ConnectionMode = 'internet' | 'wifi' | 'bluetooth';
 
 export class P2PManager {
   private peers: Map<string, PeerConnection> = new Map();
+  private myDeviceId: string = '';
   private onMessageCallback?: (peerId: string, message: any) => void;
   private onFileCallback?: (peerId: string, file: Blob, filename: string) => void;
-  private onConnectCallback?: (peerId: string) => void;
-  private onDisconnectCallback?: (peerId: string) => void;
+  private onConnectCallback?: (peerId: string, deviceId: string, peerName: string) => void;
+  private onDisconnectCallback?: (peerId: string, deviceId: string) => void;
+  private onStatusChangeCallback?: (peerId: string, status: PeerConnection['status']) => void;
 
   constructor() {
     this.peers = new Map();
   }
 
+  setMyDeviceId(deviceId: string) {
+    this.myDeviceId = deviceId;
+  }
+
+  getMyDeviceId(): string {
+    return this.myDeviceId;
+  }
+
   // Create a peer connection (initiator)
-  createConnection(peerId: string, initiator: boolean = true): SimplePeer.Instance {
+  createConnection(peerId: string, deviceId: string, peerName: string, initiator: boolean = true): SimplePeer.Instance {
     const peer = new SimplePeer({
       initiator,
       trickle: false,
@@ -32,24 +45,30 @@ export class P2PManager {
       }
     });
 
-    this.setupPeerEvents(peer, peerId);
+    this.setupPeerEvents(peer, peerId, deviceId, peerName);
     
     this.peers.set(peerId, {
       peer,
       peerId,
-      connected: false
+      deviceId,
+      peerName,
+      connected: false,
+      status: 'connecting'
     });
 
+    this.onStatusChangeCallback?.(peerId, 'connecting');
     return peer;
   }
 
-  private setupPeerEvents(peer: SimplePeer.Instance, peerId: string) {
+  private setupPeerEvents(peer: SimplePeer.Instance, peerId: string, deviceId: string, peerName: string) {
     peer.on('connect', () => {
       const connection = this.peers.get(peerId);
       if (connection) {
         connection.connected = true;
+        connection.status = 'connected';
       }
-      this.onConnectCallback?.(peerId);
+      this.onStatusChangeCallback?.(peerId, 'connected');
+      this.onConnectCallback?.(peerId, deviceId, peerName);
     });
 
     peer.on('data', (data: Uint8Array) => {
@@ -72,8 +91,10 @@ export class P2PManager {
       const connection = this.peers.get(peerId);
       if (connection) {
         connection.connected = false;
+        connection.status = 'disconnected';
       }
-      this.onDisconnectCallback?.(peerId);
+      this.onStatusChangeCallback?.(peerId, 'disconnected');
+      this.onDisconnectCallback?.(peerId, deviceId);
     });
 
     peer.on('error', (err) => {
@@ -143,12 +164,16 @@ export class P2PManager {
     this.onFileCallback = callback;
   }
 
-  onConnect(callback: (peerId: string) => void) {
+  onConnect(callback: (peerId: string, deviceId: string, peerName: string) => void) {
     this.onConnectCallback = callback;
   }
 
-  onDisconnect(callback: (peerId: string) => void) {
+  onDisconnect(callback: (peerId: string, deviceId: string) => void) {
     this.onDisconnectCallback = callback;
+  }
+
+  onStatusChange(callback: (peerId: string, status: PeerConnection['status']) => void) {
+    this.onStatusChangeCallback = callback;
   }
 
   // Get all connected peers
@@ -161,6 +186,27 @@ export class P2PManager {
   // Check if connected to a specific peer
   isConnected(peerId: string): boolean {
     return this.peers.get(peerId)?.connected || false;
+  }
+
+  // Get peer connection info
+  getPeerInfo(peerId: string): { deviceId: string; peerName: string; status: PeerConnection['status'] } | null {
+    const connection = this.peers.get(peerId);
+    if (!connection) return null;
+    return {
+      deviceId: connection.deviceId,
+      peerName: connection.peerName,
+      status: connection.status
+    };
+  }
+
+  // Get all peers info
+  getAllPeersInfo(): Array<{ peerId: string; deviceId: string; peerName: string; status: PeerConnection['status'] }> {
+    return Array.from(this.peers.values()).map(p => ({
+      peerId: p.peerId,
+      deviceId: p.deviceId,
+      peerName: p.peerName,
+      status: p.status
+    }));
   }
 
   // Cleanup

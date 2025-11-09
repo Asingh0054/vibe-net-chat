@@ -5,40 +5,75 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useNavigate } from "react-router-dom";
 import { ConnectionModal } from "@/components/ConnectionModal";
 import { PermissionsDialog } from "@/components/PermissionsDialog";
+import { DeviceIdCard } from "@/components/DeviceIdCard";
+import { SavedDevicesList } from "@/components/SavedDevicesList";
 import { p2pManager, ConnectionMode } from "@/lib/webrtc";
+import { getDeviceId, getSavedPeers, savePeer, removeSavedPeer, updateLastConnected, SavedPeer } from "@/lib/deviceManager";
 import { toast } from "sonner";
 
 const Home = () => {
   const navigate = useNavigate();
   const [connectionModalOpen, setConnectionModalOpen] = useState(false);
   const [permissionsDialogOpen, setPermissionsDialogOpen] = useState(false);
-  const [connectionCode, setConnectionCode] = useState<string>("");
-  const [connectedPeers, setConnectedPeers] = useState<string[]>([]);
+  const [deviceId, setDeviceId] = useState<string>("");
+  const [savedPeers, setSavedPeers] = useState<SavedPeer[]>([]);
+  const [connectedPeerDeviceIds, setConnectedPeerDeviceIds] = useState<string[]>([]);
 
   useEffect(() => {
-    // Check if first time user
-    const hasSeenPermissions = localStorage.getItem("hasSeenPermissions");
-    if (!hasSeenPermissions) {
-      setPermissionsDialogOpen(true);
-    }
+    const initializeDevice = async () => {
+      // Check if first time user
+      const hasSeenPermissions = localStorage.getItem("hasSeenPermissions");
+      if (!hasSeenPermissions) {
+        setPermissionsDialogOpen(true);
+      }
 
-    // Generate connection code (simplified - in production use a proper signaling server)
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    setConnectionCode(code);
+      // Get or create device ID
+      const myDeviceId = await getDeviceId();
+      setDeviceId(myDeviceId);
+      p2pManager.setMyDeviceId(myDeviceId);
 
-    // Setup P2P event listeners
-    p2pManager.onConnect((peerId) => {
-      toast.success(`Connected to ${peerId}`);
-      setConnectedPeers(p2pManager.getConnectedPeers());
-    });
+      // Load saved peers
+      const peers = await getSavedPeers(myDeviceId);
+      setSavedPeers(peers);
 
-    p2pManager.onDisconnect((peerId) => {
-      toast.info(`Disconnected from ${peerId}`);
-      setConnectedPeers(p2pManager.getConnectedPeers());
-    });
+      // Setup P2P event listeners
+      p2pManager.onConnect(async (peerId, peerDeviceId, peerName) => {
+        toast.success(`Connected to ${peerName}`);
+        
+        // Save peer connection
+        await savePeer(myDeviceId, peerDeviceId, peerName);
+        await updateLastConnected(myDeviceId, peerDeviceId);
+        
+        // Reload saved peers
+        const updatedPeers = await getSavedPeers(myDeviceId);
+        setSavedPeers(updatedPeers);
+        
+        // Update connected peer IDs
+        const allPeers = p2pManager.getAllPeersInfo();
+        setConnectedPeerDeviceIds(allPeers.filter(p => p.status === 'connected').map(p => p.deviceId));
+      });
+
+      p2pManager.onDisconnect(async (peerId, peerDeviceId) => {
+        const peerInfo = p2pManager.getPeerInfo(peerId);
+        toast.info(`Disconnected from ${peerInfo?.peerName || 'peer'}`);
+        
+        // Update connected peer IDs
+        const allPeers = p2pManager.getAllPeersInfo();
+        setConnectedPeerDeviceIds(allPeers.filter(p => p.status === 'connected').map(p => p.deviceId));
+      });
+
+      p2pManager.onStatusChange((peerId, status) => {
+        const peerInfo = p2pManager.getPeerInfo(peerId);
+        if (status === 'reconnecting') {
+          toast.info(`Reconnecting to ${peerInfo?.peerName || 'peer'}...`);
+        }
+      });
+    };
+
+    initializeDevice();
 
     return () => {
-      // Cleanup on unmount
+      // Cleanup on unmount (don't destroy - allow reconnection)
     };
   }, []);
 
@@ -48,19 +83,49 @@ const Home = () => {
     toast.success("Permissions configured!");
   };
 
-  const handleConnect = (mode: ConnectionMode, code: string) => {
+  const handleConnect = (mode: ConnectionMode, peerDeviceIdOrCode: string) => {
+    // Find if this is a saved peer
+    const savedPeer = savedPeers.find(p => p.peer_device_id === peerDeviceIdOrCode);
+    const peerName = savedPeer?.peer_name || 'Unknown Device';
 
     // Create a peer connection
-    const peer = p2pManager.createConnection(code, false);
+    const peer = p2pManager.createConnection(peerDeviceIdOrCode, peerDeviceIdOrCode, peerName, false);
     
     peer.on('signal', (signalData) => {
       // In a real app, you'd send this through a signaling server
       console.log('Signal data:', signalData);
-      toast.info("Connecting...");
+      toast.info(`Connecting to ${peerName}...`);
     });
 
     setConnectionModalOpen(false);
-    toast.success(`Attempting ${mode} connection...`);
+  };
+
+  const handleReconnect = async (peerDeviceId: string, peerName: string) => {
+    // Check if already connected
+    const allPeers = p2pManager.getAllPeersInfo();
+    const existingPeer = allPeers.find(p => p.deviceId === peerDeviceId);
+    
+    if (existingPeer && existingPeer.status === 'connected') {
+      toast.info(`Already connected to ${peerName}`);
+      return;
+    }
+
+    // Create new connection
+    const peer = p2pManager.createConnection(peerDeviceId, peerDeviceId, peerName, false);
+    
+    peer.on('signal', (signalData) => {
+      console.log('Reconnect signal data:', signalData);
+      toast.info(`Reconnecting to ${peerName}...`);
+    });
+
+    await updateLastConnected(deviceId, peerDeviceId);
+  };
+
+  const handleRemovePeer = async (peerDeviceId: string) => {
+    await removeSavedPeer(deviceId, peerDeviceId);
+    const updatedPeers = await getSavedPeers(deviceId);
+    setSavedPeers(updatedPeers);
+    toast.success("Device removed from saved list");
   };
 
   const handleStartConnection = () => {
@@ -69,17 +134,17 @@ const Home = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-12">\
+      <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-6xl font-bold mb-4 neon-text bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            NeonShare
+            Team XV IT
           </h1>
           <p className="text-xl text-muted-foreground mb-4">
             Share files and chat instantly via WiFi, Bluetooth, or Internet
           </p>
-          {connectedPeers.length > 0 && (
+          {connectedPeerDeviceIds.length > 0 && (
             <p className="text-sm text-primary mb-4">
-              ✓ {connectedPeers.length} peer{connectedPeers.length > 1 ? 's' : ''} connected
+              ✓ {connectedPeerDeviceIds.length} device{connectedPeerDeviceIds.length > 1 ? 's' : ''} connected
             </p>
           )}
           <div className="flex gap-4 justify-center flex-wrap">
@@ -109,6 +174,17 @@ const Home = () => {
               Share Files
             </Button>
           </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto mb-12 space-y-6">
+          {deviceId && <DeviceIdCard deviceId={deviceId} />}
+          
+          <SavedDevicesList
+            savedPeers={savedPeers}
+            onConnect={handleReconnect}
+            onRemove={handleRemovePeer}
+            connectedPeerIds={connectedPeerDeviceIds}
+          />
         </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -178,7 +254,7 @@ const Home = () => {
         open={connectionModalOpen}
         onOpenChange={setConnectionModalOpen}
         onConnect={handleConnect}
-        connectionCode={connectionCode}
+        connectionCode={deviceId}
       />
 
       <PermissionsDialog
