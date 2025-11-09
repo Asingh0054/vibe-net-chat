@@ -10,6 +10,7 @@ import { SavedDevicesList } from "@/components/SavedDevicesList";
 import { p2pManager, ConnectionMode } from "@/lib/webrtc";
 import { getDeviceId, getSavedPeers, savePeer, removeSavedPeer, updateLastConnected, SavedPeer } from "@/lib/deviceManager";
 import { toast } from "sonner";
+import { requestNotificationPermission } from "@/lib/notifications";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ const Home = () => {
       const myDeviceId = await getDeviceId();
       setDeviceId(myDeviceId);
       p2pManager.setMyDeviceId(myDeviceId);
+
+      // Request notification permission
+      await requestNotificationPermission();
 
       // Load saved peers
       const peers = await getSavedPeers(myDeviceId);

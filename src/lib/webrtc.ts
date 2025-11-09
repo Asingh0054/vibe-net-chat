@@ -1,4 +1,5 @@
 import SimplePeer from 'simple-peer';
+import { showNotification } from './notifications';
 
 export interface PeerConnection {
   peer: SimplePeer.Instance;
@@ -78,9 +79,19 @@ export class P2PManager {
         if (message.type === 'file') {
           // Handle file metadata
           this.handleFileTransfer(peerId, message);
+          // Show notification for received file
+          showNotification('File Received', {
+            body: `${peerName} sent you a file: ${message.filename}`,
+            tag: `file-${peerId}-${Date.now()}`
+          });
         } else {
           // Handle regular message
           this.onMessageCallback?.(peerId, message);
+          // Show notification for received message
+          showNotification('New Message', {
+            body: `${peerName}: ${message.text || 'Sent a message'}`,
+            tag: `message-${peerId}-${Date.now()}`
+          });
         }
       } catch (error) {
         console.error('Error parsing peer data:', error);
