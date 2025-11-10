@@ -7,6 +7,7 @@ import { ConnectionModal } from "@/components/ConnectionModal";
 import { PermissionsDialog } from "@/components/PermissionsDialog";
 import { DeviceIdCard } from "@/components/DeviceIdCard";
 import { SavedDevicesList } from "@/components/SavedDevicesList";
+import { BluetoothDeviceSelector } from "@/components/BluetoothDeviceSelector";
 import { p2pManager, ConnectionMode } from "@/lib/webrtc";
 import { getDeviceId, getSavedPeers, savePeer, removeSavedPeer, updateLastConnected, SavedPeer } from "@/lib/deviceManager";
 import { toast } from "sonner";
@@ -182,6 +183,8 @@ const Home = () => {
 
         <div className="max-w-2xl mx-auto mb-12 space-y-6">
           {deviceId && <DeviceIdCard deviceId={deviceId} />}
+          
+          <BluetoothDeviceSelector />
           
           <SavedDevicesList
             savedPeers={savedPeers}
