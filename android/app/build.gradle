@@ -2,25 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-    namespace "com.vibenet.chat"
+    namespace "com.asingh.vibenetchat"
     compileSdk = 35
 
     defaultConfig {
-        applicationId "com.vibenet.chat"
+        applicationId "com.asingh.vibenetchat"
         minSdk = 23
         targetSdk = 35
         versionCode 1
@@ -28,12 +14,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 
     buildTypes {

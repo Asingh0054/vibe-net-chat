@@ -28,37 +28,19 @@ jobs:
       - name: Sync Android project
         run: npx cap sync android
 
-      - name: Setup Java 21 (Temurin)
+      - name: Setup Java 17 (Temurin)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
-
-      - name: Configure Gradle environment
-        run: |
-          mkdir -p ~/.gradle
-          cat <<'PATCH' > ~/.gradle/init.gradle
-          allprojects {
-              gradle.projectsEvaluated {
-                  tasks.withType(JavaCompile) {
-                      sourceCompatibility = "21"
-                      targetCompatibility = "21"
-                  }
-                  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-                      kotlinOptions.jvmTarget = "21"
-                  }
-              }
-          }
-          PATCH
-          echo "✅ Global Gradle config for Java 21 ready."
+          java-version: 17
 
       - name: Clean Gradle cache
         working-directory: android
-        run: ./gradlew clean --no-daemon -I ~/.gradle/init.gradle || true
+        run: ./gradlew clean --no-daemon --refresh-dependencies || true
 
       - name: Build Android Debug APK
         working-directory: android
-        run: ./gradlew assembleDebug --stacktrace -I ~/.gradle/init.gradle
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK artifact
         if: success()

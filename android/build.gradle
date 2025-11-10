@@ -16,8 +16,8 @@ buildscript {
         cordovaAndroidVersion = '10.1.1'
 
         // ✅ Force Java 17 globally
-        javaSourceCompatibility = JavaVersion.VERSION_21
-        javaTargetCompatibility = JavaVersion.VERSION_21
+        javaSourceCompatibility = JavaVersion.VERSION_17
+        javaTargetCompatibility = JavaVersion.VERSION_17
     }
 
     repositories {
@@ -44,7 +44,7 @@ task clean(type: Delete) {
 allprojects {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {
-            jvmTarget = "21"
+            jvmTarget = "17"
         }
     }
 }
