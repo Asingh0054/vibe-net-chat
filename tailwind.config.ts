@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'cinzel': ['Cinzel', 'serif'],
+        'cormorant': ['Cormorant Garamond', 'serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +62,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Traditional Rajasthani palette
+        peacock: "hsl(var(--peacock-blue))",
+        saffron: "hsl(var(--saffron))",
+        henna: "hsl(var(--henna))",
+        silk: "hsl(var(--silk-pink))",
       },
       borderRadius: {
         lg: "var(--radius)",

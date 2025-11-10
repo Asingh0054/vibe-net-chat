@@ -8,91 +8,109 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* Rajasthani Light Theme - Inspired by palaces, textiles, and vibrant culture */
+    --background: 35 45% 96%;
+    --foreground: 0 20% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 30 60% 98%;
+    --card-foreground: 0 20% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 30 60% 98%;
+    --popover-foreground: 0 20% 15%;
 
-    --primary: 193 100% 50%;
-    --primary-foreground: 222 47% 11%;
+    /* Royal Maroon (Primary) - Traditional Rajasthani royal color */
+    --primary: 350 75% 40%;
+    --primary-foreground: 35 45% 98%;
 
-    --secondary: 328 100% 54%;
-    --secondary-foreground: 0 0% 100%;
+    /* Marigold Gold (Secondary) - Festival and celebration color */
+    --secondary: 40 85% 55%;
+    --secondary-foreground: 0 20% 15%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 35 35% 90%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 271 81% 56%;
+    /* Turquoise Accent - Traditional jewelry and art color */
+    --accent: 175 65% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 193 100% 50%;
+    --border: 35 25% 85%;
+    --input: 35 25% 85%;
+    --ring: 350 75% 40%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --neon-glow: 0 0 20px hsl(193 100% 50% / 0.5);
-    --neon-glow-sm: 0 0 10px hsl(193 100% 50% / 0.3);
-    --neon-glow-lg: 0 0 30px hsl(193 100% 50% / 0.6);
+    /* Rajasthani Ornate Glows */
+    --rajasthan-glow: 0 0 25px hsl(40 85% 55% / 0.5);
+    --rajasthan-glow-sm: 0 0 12px hsl(40 85% 55% / 0.3);
+    --rajasthan-glow-lg: 0 0 35px hsl(40 85% 55% / 0.6);
+    --royal-shadow: 0 4px 20px hsl(350 75% 40% / 0.25);
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 193 100% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 193 100% 50%;
+    /* Additional Rajasthani colors */
+    --peacock-blue: 195 75% 45%;
+    --saffron: 30 95% 60%;
+    --henna: 15 60% 45%;
+    --silk-pink: 330 70% 65%;
+
+    --sidebar-background: 30 60% 98%;
+    --sidebar-foreground: 0 20% 15%;
+    --sidebar-primary: 350 75% 40%;
+    --sidebar-primary-foreground: 35 45% 98%;
+    --sidebar-accent: 35 35% 90%;
+    --sidebar-accent-foreground: 0 20% 15%;
+    --sidebar-border: 35 25% 85%;
+    --sidebar-ring: 350 75% 40%;
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
+    /* Rajasthani Night Theme - Inspired by desert nights and palace lighting */
+    --background: 350 35% 8%;
+    --foreground: 35 45% 96%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 350 30% 12%;
+    --card-foreground: 35 45% 96%;
 
-    --popover: 222 47% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 350 30% 10%;
+    --popover-foreground: 35 45% 96%;
 
-    --primary: 193 100% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Rich Gold (Primary for dark) */
+    --primary: 40 85% 55%;
+    --primary-foreground: 0 20% 15%;
 
-    --secondary: 328 100% 54%;
-    --secondary-foreground: 0 0% 100%;
+    /* Deep Maroon (Secondary for dark) */
+    --secondary: 350 65% 35%;
+    --secondary-foreground: 35 45% 98%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 350 20% 20%;
+    --muted-foreground: 35 25% 65%;
 
-    --accent: 271 81% 56%;
-    --accent-foreground: 0 0% 100%;
+    /* Bright Turquoise Accent */
+    --accent: 175 70% 50%;
+    --accent-foreground: 0 20% 15%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 65% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 193 100% 50%;
+    --border: 350 20% 22%;
+    --input: 350 20% 22%;
+    --ring: 40 85% 55%;
 
-    --neon-glow: 0 0 20px hsl(193 100% 50% / 0.6);
-    --neon-glow-sm: 0 0 10px hsl(193 100% 50% / 0.4);
-    --neon-glow-lg: 0 0 40px hsl(193 100% 50% / 0.8);
+    /* Night glow effects */
+    --rajasthan-glow: 0 0 30px hsl(40 85% 55% / 0.6);
+    --rajasthan-glow-sm: 0 0 15px hsl(40 85% 55% / 0.4);
+    --rajasthan-glow-lg: 0 0 45px hsl(40 85% 55% / 0.8);
+    --royal-shadow: 0 4px 25px hsl(40 85% 55% / 0.3);
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 193 100% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 193 100% 50%;
+    --sidebar-background: 350 30% 10%;
+    --sidebar-foreground: 35 45% 96%;
+    --sidebar-primary: 40 85% 55%;
+    --sidebar-primary-foreground: 0 20% 15%;
+    --sidebar-accent: 350 20% 20%;
+    --sidebar-accent-foreground: 35 45% 96%;
+    --sidebar-border: 350 20% 22%;
+    --sidebar-ring: 40 85% 55%;
   }
 }
 
@@ -103,41 +121,77 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', 'Cormorant Garamond', serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', 'Cormorant Garamond', serif;
+    font-weight: 600;
   }
 }
 
 @layer utilities {
-  .neon-glow {
-    box-shadow: var(--neon-glow);
+  /* Rajasthani ornate glow effects */
+  .rajasthan-glow {
+    box-shadow: var(--rajasthan-glow);
   }
   
-  .neon-glow-sm {
-    box-shadow: var(--neon-glow-sm);
+  .rajasthan-glow-sm {
+    box-shadow: var(--rajasthan-glow-sm);
   }
   
-  .neon-glow-lg {
-    box-shadow: var(--neon-glow-lg);
+  .rajasthan-glow-lg {
+    box-shadow: var(--rajasthan-glow-lg);
   }
 
-  .neon-text {
-    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  .royal-shadow {
+    box-shadow: var(--royal-shadow);
   }
 
-  .neon-border {
-    border: 1px solid hsl(var(--primary));
-    box-shadow: 0 0 10px hsl(var(--primary) / 0.3), inset 0 0 10px hsl(var(--primary) / 0.1);
+  .ornate-text {
+    text-shadow: 0 0 15px hsl(var(--primary) / 0.4);
   }
 
-  @keyframes pulse-glow {
+  .royal-border {
+    border: 2px solid hsl(var(--primary));
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.2), inset 0 0 15px hsl(var(--primary) / 0.1);
+  }
+
+  .golden-border {
+    border: 2px solid hsl(var(--secondary));
+    box-shadow: 0 0 20px hsl(var(--secondary) / 0.3), inset 0 0 10px hsl(var(--secondary) / 0.15);
+  }
+
+  /* Traditional pattern background */
+  .rajasthani-pattern {
+    background-image: 
+      repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary) / 0.03) 10px, hsl(var(--primary) / 0.03) 20px),
+      repeating-linear-gradient(-45deg, transparent, transparent 10px, hsl(var(--secondary) / 0.02) 10px, hsl(var(--secondary) / 0.02) 20px);
+  }
+
+  @keyframes shimmer-gold {
     0%, 100% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+      box-shadow: 0 0 25px hsl(var(--secondary) / 0.4), 0 0 50px hsl(var(--secondary) / 0.2);
     }
     50% {
-      box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+      box-shadow: 0 0 35px hsl(var(--secondary) / 0.6), 0 0 70px hsl(var(--secondary) / 0.3);
     }
   }
 
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+  @keyframes pulse-royal {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+    }
+  }
+
+  .animate-shimmer-gold {
+    animation: shimmer-gold 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-royal {
+    animation: pulse-royal 2s ease-in-out infinite;
   }
 }
