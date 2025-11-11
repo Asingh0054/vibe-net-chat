@@ -1,5 +1,7 @@
 import SimplePeer from 'simple-peer';
 import { showNotification } from './notifications';
+import { validateInput, chatMessageSchema, fileSchema, signalDataSchema, deviceIdSchema, peerNameSchema } from './validation';
+import { toast } from 'sonner';
 
 export interface PeerConnection {
   peer: SimplePeer.Instance;
@@ -32,11 +34,10 @@ export class P2PManager {
       const persistedConnections = localStorage.getItem('team_xv_connections');
       if (persistedConnections) {
         const connections = JSON.parse(persistedConnections);
-        // Connections will be restored after setMyDeviceId is called
         return connections;
       }
     } catch (error) {
-      console.error('Error loading persisted connections:', error);
+      // Silent fail - don't expose error details
     }
     return [];
   }
@@ -52,7 +53,7 @@ export class P2PManager {
         }));
       localStorage.setItem('team_xv_connections', JSON.stringify(connections));
     } catch (error) {
-      console.error('Error saving connections:', error);
+      // Silent fail
     }
   }
 
@@ -66,7 +67,10 @@ export class P2PManager {
   }
 
   setMyDeviceId(deviceId: string) {
-    this.myDeviceId = deviceId;
+    const validation = validateInput(deviceIdSchema, deviceId);
+    if (validation.success) {
+      this.myDeviceId = validation.data;
+    }
   }
 
   getMyDeviceId(): string {
@@ -75,6 +79,15 @@ export class P2PManager {
 
   // Create a peer connection (initiator)
   createConnection(peerId: string, deviceId: string, peerName: string, initiator: boolean = true): SimplePeer.Instance {
+    // Validate all inputs
+    const peerIdValidation = validateInput(deviceIdSchema, peerId);
+    const deviceIdValidation = validateInput(deviceIdSchema, deviceId);
+    const peerNameValidation = validateInput(peerNameSchema, peerName);
+    
+    if (!peerIdValidation.success || !deviceIdValidation.success || !peerNameValidation.success) {
+      throw new Error('Invalid connection parameters');
+    }
+    
     const peer = new SimplePeer({
       initiator,
       trickle: false,
@@ -86,18 +99,18 @@ export class P2PManager {
       }
     });
 
-    this.setupPeerEvents(peer, peerId, deviceId, peerName);
+    this.setupPeerEvents(peer, peerIdValidation.data, deviceIdValidation.data, peerNameValidation.data);
     
-    this.peers.set(peerId, {
+    this.peers.set(peerIdValidation.data, {
       peer,
-      peerId,
-      deviceId,
-      peerName,
+      peerId: peerIdValidation.data,
+      deviceId: deviceIdValidation.data,
+      peerName: peerNameValidation.data,
       connected: false,
       status: 'connecting'
     });
 
-    this.onStatusChangeCallback?.(peerId, 'connecting');
+    this.onStatusChangeCallback?.(peerIdValidation.data, 'connecting');
     return peer;
   }
 
@@ -125,24 +138,41 @@ export class P2PManager {
         const message = JSON.parse(new TextDecoder().decode(data));
         
         if (message.type === 'file') {
+          // Validate file metadata
+          const fileValidation = validateInput(fileSchema, {
+            name: message.filename,
+            size: message.size,
+            type: message.mimeType || 'application/octet-stream'
+          });
+          
+          if (!fileValidation.success) {
+            toast.error('Received invalid file');
+            return;
+          }
+          
           // Handle file metadata
           this.handleFileTransfer(peerId, message);
-          // Show notification for received file
           showNotification('File Received', {
             body: `${peerName} sent you a file: ${message.filename}`,
             tag: `file-${peerId}-${Date.now()}`
           });
         } else {
-          // Handle regular message
+          // Validate text messages
+          if (message.text) {
+            const msgValidation = validateInput(chatMessageSchema, message.text);
+            if (!msgValidation.success) {
+              return; // Silently drop invalid messages
+            }
+          }
+          
           this.onMessageCallback?.(peerId, message);
-          // Show notification for received message
           showNotification('New Message', {
             body: `${peerName}: ${message.text || 'Sent a message'}`,
             tag: `message-${peerId}-${Date.now()}`
           });
         }
       } catch (error) {
-        console.error('Error parsing peer data:', error);
+        // Silent fail - don't expose error details
       }
     });
 
@@ -161,7 +191,7 @@ export class P2PManager {
     });
 
     peer.on('error', (err) => {
-      console.error('Peer error:', err);
+      // Don't log sensitive error details
     });
   }
 
@@ -174,6 +204,21 @@ export class P2PManager {
 
   // Send a text message
   sendMessage(peerId: string, message: any) {
+    // Validate message if it's a string
+    if (typeof message === 'string') {
+      const validation = validateInput(chatMessageSchema, message);
+      if (!validation.success) {
+        toast.error('Message is too long');
+        return false;
+      }
+    } else if (message.text) {
+      const validation = validateInput(chatMessageSchema, message.text);
+      if (!validation.success) {
+        toast.error('Message is too long');
+        return false;
+      }
+    }
+    
     const connection = this.peers.get(peerId);
     if (connection && connection.connected) {
       connection.peer.send(JSON.stringify(message));
@@ -184,6 +229,18 @@ export class P2PManager {
 
   // Send a file
   async sendFile(peerId: string, file: File) {
+    // Validate file
+    const validation = validateInput(fileSchema, {
+      name: file.name,
+      size: file.size,
+      type: file.type
+    });
+    
+    if (validation.success === false) {
+      toast.error(validation.error);
+      return false;
+    }
+    
     const connection = this.peers.get(peerId);
     if (!connection || !connection.connected) {
       return false;
@@ -203,6 +260,12 @@ export class P2PManager {
 
   // Connect to a peer using signal data
   connect(peerId: string, signalData: SimplePeer.SignalData) {
+    // Validate signal data
+    const validation = validateInput(signalDataSchema, signalData);
+    if (!validation.success) {
+      return;
+    }
+    
     const connection = this.peers.get(peerId);
     if (connection) {
       connection.peer.signal(signalData);
@@ -242,7 +305,6 @@ export class P2PManager {
       if (attempts > maxAttempts) {
         clearInterval(interval);
         this.reconnectIntervals.delete(peerId);
-        console.log(`Max reconnection attempts reached for ${peerName}`);
         return;
       }
 
@@ -253,7 +315,6 @@ export class P2PManager {
         return;
       }
 
-      console.log(`Reconnection attempt ${attempts}/${maxAttempts} for ${peerName}`);
       await this.attemptReconnection(peerId, deviceId, peerName);
     }, reconnectDelay);
 
@@ -273,11 +334,8 @@ export class P2PManager {
       // Create new connection attempt
       this.onStatusChangeCallback?.(peerId, 'reconnecting');
       
-      // The actual reconnection logic would involve signaling through Supabase
-      // This is handled by the ConnectionModal or automatic signaling system
-      
     } catch (error) {
-      console.error('Reconnection attempt failed:', error);
+      // Silent fail
     }
   }
 

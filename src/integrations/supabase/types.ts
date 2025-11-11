@@ -21,6 +21,7 @@ export type Database = {
           device_name: string | null
           id: string
           last_seen: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -28,6 +29,7 @@ export type Database = {
           device_name?: string | null
           id?: string
           last_seen?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -35,6 +37,7 @@ export type Database = {
           device_name?: string | null
           id?: string
           last_seen?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -46,7 +49,9 @@ export type Database = {
           expires_at: string
           id: string
           initiator_signal: Json | null
+          initiator_user_id: string | null
           responder_signal: Json | null
+          responder_user_id: string | null
         }
         Insert: {
           connected?: boolean | null
@@ -55,7 +60,9 @@ export type Database = {
           expires_at?: string
           id?: string
           initiator_signal?: Json | null
+          initiator_user_id?: string | null
           responder_signal?: Json | null
+          responder_user_id?: string | null
         }
         Update: {
           connected?: boolean | null
@@ -64,7 +71,9 @@ export type Database = {
           expires_at?: string
           id?: string
           initiator_signal?: Json | null
+          initiator_user_id?: string | null
           responder_signal?: Json | null
+          responder_user_id?: string | null
         }
         Relationships: []
       }
@@ -76,6 +85,7 @@ export type Database = {
           last_connected: string | null
           peer_device_id: string
           peer_name: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -84,6 +94,7 @@ export type Database = {
           last_connected?: string | null
           peer_device_id: string
           peer_name: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -92,6 +103,7 @@ export type Database = {
           last_connected?: string | null
           peer_device_id?: string
           peer_name?: string
+          user_id?: string | null
         }
         Relationships: []
       }

@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Wifi, Bluetooth, Globe, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 import { ConnectionMode } from "@/lib/webrtc";
+import { validateInput, connectionCodeSchema } from "@/lib/validation";
 
 interface ConnectionModalProps {
   open: boolean;
@@ -40,8 +41,17 @@ export function ConnectionModal({
   };
 
   const handleConnect = () => {
-    if (code.trim()) {
-      onConnect(selectedMode, code.trim());
+    const trimmedCode = code.trim();
+    
+    // Validate connection code
+    const validation = validateInput(connectionCodeSchema, trimmedCode);
+    if (validation.success === false) {
+      toast.error(validation.error);
+      return;
+    }
+    
+    if (trimmedCode) {
+      onConnect(selectedMode, validation.data);
       setCode("");
     }
   };
