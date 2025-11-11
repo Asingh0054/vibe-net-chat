@@ -43,6 +43,11 @@ export function ConnectionModal({
   const handleConnect = () => {
     const trimmedCode = code.trim();
     
+    if (!trimmedCode) {
+      toast.error("Please enter a connection code");
+      return;
+    }
+    
     // Validate connection code
     const validation = validateInput(connectionCodeSchema, trimmedCode);
     if (validation.success === false) {
@@ -50,10 +55,9 @@ export function ConnectionModal({
       return;
     }
     
-    if (trimmedCode) {
-      onConnect(selectedMode, validation.data);
-      setCode("");
-    }
+    onConnect(selectedMode, validation.data);
+    setCode("");
+    onOpenChange(false);
   };
 
   return (

@@ -91,6 +91,33 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
     }
   };
 
+  const handleGrantAll = async () => {
+    const results = await Promise.all(
+      permissions.map(async (perm) => {
+        if (!perm.granted) {
+          const status = await requestPermission(perm.type);
+          return { type: perm.type, granted: status.granted };
+        }
+        return { type: perm.type, granted: true };
+      })
+    );
+
+    setPermissions((prev) =>
+      prev.map((p) => {
+        const result = results.find((r) => r.type === p.type);
+        return result ? { ...p, granted: result.granted } : p;
+      })
+    );
+
+    const allGranted = results.every((r) => r.granted);
+    if (allGranted) {
+      toast.success("All permissions granted!");
+      onComplete();
+    } else {
+      toast.error("Some permissions were denied. Please enable them in settings.");
+    }
+  };
+
   const allGranted = permissions.every((p) => p.granted);
 
   return (
@@ -135,9 +162,8 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
             Skip for Now
           </Button>
           <Button
-            onClick={onComplete}
+            onClick={allGranted ? onComplete : handleGrantAll}
             className="bg-gradient-to-r from-primary to-accent neon-glow"
-            disabled={!allGranted}
           >
             {allGranted ? "Continue" : "Grant All Permissions"}
           </Button>
