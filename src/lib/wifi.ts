@@ -27,9 +27,15 @@ export const isWiFiDirectAvailable = (): boolean => {
 export const isConnectedToWiFi = async (): Promise<boolean> => {
   if (!Capacitor.isNativePlatform()) {
     // On web, we can use Network Information API if available
-    if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
-      return connection.type === 'wifi';
+    if ('connection' in navigator || 'mozConnection' in navigator || 'webkitConnection' in navigator) {
+      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      if (connection && connection.type) {
+        return connection.type === 'wifi';
+      }
+      if (connection && connection.effectiveType) {
+        // effectiveType returns 4g, 3g, 2g, slow-2g
+        return navigator.onLine; // Just check if online as fallback
+      }
     }
     // Fallback: assume connected if online
     return navigator.onLine;

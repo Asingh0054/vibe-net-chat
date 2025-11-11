@@ -92,13 +92,18 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
   };
 
   const handleGrantAll = async () => {
+    const permissionsToRequest = permissions.filter((p) => !p.granted);
+    
+    if (permissionsToRequest.length === 0) {
+      toast.success("All permissions already granted!");
+      onComplete();
+      return;
+    }
+
     const results = await Promise.all(
-      permissions.map(async (perm) => {
-        if (!perm.granted) {
-          const status = await requestPermission(perm.type);
-          return { type: perm.type, granted: status.granted };
-        }
-        return { type: perm.type, granted: true };
+      permissionsToRequest.map(async (perm) => {
+        const status = await requestPermission(perm.type);
+        return { type: perm.type, granted: status.granted };
       })
     );
 
@@ -112,7 +117,7 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
     const allGranted = results.every((r) => r.granted);
     if (allGranted) {
       toast.success("All permissions granted!");
-      onComplete();
+      setTimeout(() => onComplete(), 500);
     } else {
       toast.error("Some permissions were denied. Please enable them in settings.");
     }
@@ -162,7 +167,7 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
             Skip for Now
           </Button>
           <Button
-            onClick={allGranted ? onComplete : handleGrantAll}
+            onClick={handleGrantAll}
             className="bg-gradient-to-r from-primary to-accent neon-glow"
           >
             {allGranted ? "Continue" : "Grant All Permissions"}

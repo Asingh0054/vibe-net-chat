@@ -55,6 +55,7 @@ export function ConnectionModal({
       return;
     }
     
+    toast.success("Connecting to peer...");
     onConnect(selectedMode, validation.data);
     setCode("");
     onOpenChange(false);
