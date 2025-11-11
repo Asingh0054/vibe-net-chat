@@ -20,9 +20,49 @@ export class P2PManager {
   private onConnectCallback?: (peerId: string, deviceId: string, peerName: string) => void;
   private onDisconnectCallback?: (peerId: string, deviceId: string) => void;
   private onStatusChangeCallback?: (peerId: string, status: PeerConnection['status']) => void;
+  private reconnectIntervals: Map<string, NodeJS.Timeout> = new Map();
 
   constructor() {
     this.peers = new Map();
+    this.loadPersistedConnections();
+  }
+
+  private loadPersistedConnections() {
+    try {
+      const persistedConnections = localStorage.getItem('team_xv_connections');
+      if (persistedConnections) {
+        const connections = JSON.parse(persistedConnections);
+        // Connections will be restored after setMyDeviceId is called
+        return connections;
+      }
+    } catch (error) {
+      console.error('Error loading persisted connections:', error);
+    }
+    return [];
+  }
+
+  private saveConnectionsToPersistence() {
+    try {
+      const connections = Array.from(this.peers.values())
+        .filter(p => p.connected)
+        .map(p => ({
+          deviceId: p.deviceId,
+          peerName: p.peerName,
+          peerId: p.peerId
+        }));
+      localStorage.setItem('team_xv_connections', JSON.stringify(connections));
+    } catch (error) {
+      console.error('Error saving connections:', error);
+    }
+  }
+
+  async restoreConnections() {
+    const connections = this.loadPersistedConnections();
+    for (const conn of connections) {
+      if (!this.peers.has(conn.peerId)) {
+        await this.attemptReconnection(conn.peerId, conn.deviceId, conn.peerName);
+      }
+    }
   }
 
   setMyDeviceId(deviceId: string) {
@@ -68,8 +108,16 @@ export class P2PManager {
         connection.connected = true;
         connection.status = 'connected';
       }
+      this.saveConnectionsToPersistence();
       this.onStatusChangeCallback?.(peerId, 'connected');
       this.onConnectCallback?.(peerId, deviceId, peerName);
+      
+      // Clear any reconnection interval
+      const interval = this.reconnectIntervals.get(peerId);
+      if (interval) {
+        clearInterval(interval);
+        this.reconnectIntervals.delete(peerId);
+      }
     });
 
     peer.on('data', (data: Uint8Array) => {
@@ -104,8 +152,12 @@ export class P2PManager {
         connection.connected = false;
         connection.status = 'disconnected';
       }
+      this.saveConnectionsToPersistence();
       this.onStatusChangeCallback?.(peerId, 'disconnected');
       this.onDisconnectCallback?.(peerId, deviceId);
+      
+      // Attempt automatic reconnection
+      this.scheduleReconnection(peerId, deviceId, peerName);
     });
 
     peer.on('error', (err) => {
@@ -157,12 +209,75 @@ export class P2PManager {
     }
   }
 
-  // Disconnect from a peer
-  disconnect(peerId: string) {
+  // Disconnect from a peer (manual disconnect - no reconnection)
+  disconnect(peerId: string, manual: boolean = true) {
     const connection = this.peers.get(peerId);
     if (connection) {
       connection.peer.destroy();
       this.peers.delete(peerId);
+      
+      // Clear reconnection interval if manual disconnect
+      if (manual) {
+        const interval = this.reconnectIntervals.get(peerId);
+        if (interval) {
+          clearInterval(interval);
+          this.reconnectIntervals.delete(peerId);
+        }
+        this.saveConnectionsToPersistence();
+      }
+    }
+  }
+
+  private scheduleReconnection(peerId: string, deviceId: string, peerName: string) {
+    // Don't schedule if already reconnecting
+    if (this.reconnectIntervals.has(peerId)) return;
+
+    let attempts = 0;
+    const maxAttempts = 10;
+    const reconnectDelay = 3000; // 3 seconds
+
+    const interval = setInterval(async () => {
+      attempts++;
+      
+      if (attempts > maxAttempts) {
+        clearInterval(interval);
+        this.reconnectIntervals.delete(peerId);
+        console.log(`Max reconnection attempts reached for ${peerName}`);
+        return;
+      }
+
+      const connection = this.peers.get(peerId);
+      if (connection?.connected) {
+        clearInterval(interval);
+        this.reconnectIntervals.delete(peerId);
+        return;
+      }
+
+      console.log(`Reconnection attempt ${attempts}/${maxAttempts} for ${peerName}`);
+      await this.attemptReconnection(peerId, deviceId, peerName);
+    }, reconnectDelay);
+
+    this.reconnectIntervals.set(peerId, interval);
+  }
+
+  private async attemptReconnection(peerId: string, deviceId: string, peerName: string) {
+    try {
+      const connection = this.peers.get(peerId);
+      if (connection?.connected) return;
+
+      // Remove old disconnected peer
+      if (connection) {
+        this.peers.delete(peerId);
+      }
+
+      // Create new connection attempt
+      this.onStatusChangeCallback?.(peerId, 'reconnecting');
+      
+      // The actual reconnection logic would involve signaling through Supabase
+      // This is handled by the ConnectionModal or automatic signaling system
+      
+    } catch (error) {
+      console.error('Reconnection attempt failed:', error);
     }
   }
 
@@ -222,10 +337,17 @@ export class P2PManager {
 
   // Cleanup
   destroy() {
+    // Clear all reconnection intervals
+    this.reconnectIntervals.forEach(interval => clearInterval(interval));
+    this.reconnectIntervals.clear();
+    
     this.peers.forEach(connection => {
       connection.peer.destroy();
     });
     this.peers.clear();
+    
+    // Clear persistence
+    localStorage.removeItem('team_xv_connections');
   }
 }
 
