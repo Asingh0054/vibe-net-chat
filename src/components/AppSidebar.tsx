@@ -1,4 +1,4 @@
-import { Home, MessageSquare, Share2, Settings, Clock } from "lucide-react";
+import { Home, MessageSquare, Share2, Settings, Clock, Info } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import {
   Sidebar,
@@ -18,6 +18,7 @@ const items = [
   { title: "Share Files", url: "/share", icon: Share2 },
   { title: "Recent", url: "/recent", icon: Clock },
   { title: "Settings", url: "/settings", icon: Settings },
+  { title: "About Us", url: "/about", icon: Info },
 ];
 
 export function AppSidebar() {

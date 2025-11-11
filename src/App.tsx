@@ -9,6 +9,7 @@ import Chat from "./pages/Chat";
 import Share from "./pages/Share";
 import Recent from "./pages/Recent";
 import Settings from "./pages/Settings";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/share" element={<Share />} />
             <Route path="/recent" element={<Recent />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
