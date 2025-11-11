@@ -1,7 +1,8 @@
-import { useState, useRef, DragEvent } from "react";
+import { useState, useRef, DragEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, File, Image, Video, Music, FileText, Download, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Upload, File, Image, Video, Music, FileText, Download, X, CloudDownload } from "lucide-react";
 import { toast } from "sonner";
 import { p2pManager } from "@/lib/webrtc";
 import { validateInput, fileSchema } from "@/lib/validation";
@@ -13,12 +14,83 @@ interface SharedFile {
   type: string;
   timestamp: Date;
   file?: File;
+  received?: boolean;
+  fromPeer?: string;
 }
 
 const Share = () => {
   const [files, setFiles] = useState<SharedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Set up file receive handler
+    const handleFileReceived = async (peerId: string, fileBlob: Blob, filename: string) => {
+      const fileType = getFileType(fileBlob.type);
+      const fileSize = formatFileSize(fileBlob.size);
+      
+      // Convert Blob to File object
+      const fileArray = await fileBlob.arrayBuffer();
+      const file = new globalThis.File([fileArray], filename, { type: fileBlob.type });
+      
+      // Get peer info
+      const peers = p2pManager.getConnectedPeers();
+      const peer = peers.find((p) => p === peerId);
+      const peerName = peer || peerId;
+      
+      const receivedFile: SharedFile = {
+        id: `received-${Date.now()}`,
+        name: filename,
+        size: fileSize,
+        type: fileType,
+        timestamp: new Date(),
+        file: file,
+        received: true,
+        fromPeer: peerName
+      };
+      
+      // Add to files list
+      setFiles((prev) => [receivedFile, ...prev]);
+      
+      // Auto-download the file
+      autoDownloadFile(file, filename);
+      
+      // Show notification
+      toast.success(`Received ${filename} from ${peerName}`, {
+        duration: 5000,
+        action: {
+          label: "Download",
+          onClick: () => autoDownloadFile(file, filename)
+        }
+      });
+    };
+    
+    // Register the callback
+    p2pManager.onFile(handleFileReceived);
+    
+    // Cleanup
+    return () => {
+      // Note: p2pManager doesn't have an unregister method,
+      // but the component will unmount so it's fine
+    };
+  }, []);
+
+  const autoDownloadFile = (file: File, filename: string) => {
+    try {
+      const url = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast.info(`Downloaded ${filename}`);
+    } catch (error) {
+      toast.error("Failed to download file");
+      console.error("Auto-download error:", error);
+    }
+  };
 
   const handleFileUpload = (uploadedFiles: FileList | null) => {
     if (!uploadedFiles || uploadedFiles.length === 0) return;
@@ -117,6 +189,14 @@ const Share = () => {
     toast.info("File removed");
   };
 
+  const handleDownloadFile = (sharedFile: SharedFile) => {
+    if (!sharedFile.file) {
+      toast.error("File not available");
+      return;
+    }
+    autoDownloadFile(sharedFile.file, sharedFile.name);
+  };
+
   const getFileType = (mimeType: string): string => {
     if (mimeType.startsWith("image/")) return "image";
     if (mimeType.startsWith("video/")) return "video";
@@ -190,7 +270,7 @@ const Share = () => {
 
       <div>
         <h2 className="text-2xl font-bold mb-4 neon-text">
-          Files Ready to Share ({files.length})
+          Files ({files.length})
         </h2>
         {files.length === 0 ? (
           <Card className="neon-border bg-card/30">
@@ -202,13 +282,30 @@ const Share = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {files.map((file) => (
-            <Card key={file.id} className="neon-border bg-card/50 backdrop-blur hover:neon-glow transition-all">
+            <Card
+              key={file.id}
+              className={`neon-border backdrop-blur hover:neon-glow transition-all ${
+                file.received ? 'bg-primary/10 border-primary' : 'bg-card/50'
+              }`}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center gap-3 flex-1">
-                  {getFileIcon(file.type)}
+                  {file.received ? (
+                    <CloudDownload className="h-5 w-5 text-primary animate-pulse" />
+                  ) : (
+                    getFileIcon(file.type)
+                  )}
                   <div className="flex-1 min-w-0">
-                    <CardTitle className="text-sm font-medium truncate">{file.name}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-sm font-medium truncate">{file.name}</CardTitle>
+                      {file.received && (
+                        <Badge className="bg-primary text-xs">Received</Badge>
+                      )}
+                    </div>
                     <p className="text-xs text-muted-foreground">{file.size}</p>
+                    {file.fromPeer && (
+                      <p className="text-xs text-primary/70">From: {file.fromPeer}</p>
+                    )}
                   </div>
                 </div>
                 <Button
@@ -224,14 +321,25 @@ const Share = () => {
                 <p className="text-xs text-muted-foreground">
                   {file.timestamp.toLocaleString()}
                 </p>
-                <Button
-                  onClick={() => handleSendFile(file)}
-                  className="w-full bg-gradient-to-r from-primary to-accent neon-glow"
-                  size="sm"
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  Send to Peers
-                </Button>
+                {file.received ? (
+                  <Button
+                    onClick={() => handleDownloadFile(file)}
+                    className="w-full bg-gradient-to-r from-primary to-accent neon-glow"
+                    size="sm"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Again
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => handleSendFile(file)}
+                    className="w-full bg-gradient-to-r from-primary to-accent neon-glow"
+                    size="sm"
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    Send to Peers
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ))}
