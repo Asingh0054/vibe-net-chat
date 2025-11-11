@@ -47,6 +47,29 @@ export const registerServiceWorker = async () => {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js');
       console.log('Service Worker registered:', registration);
+      
+      // Request periodic background sync for connection maintenance
+      if ('periodicSync' in registration) {
+        try {
+          await (registration as any).periodicSync.register('maintain-connections', {
+            minInterval: 60 * 1000 // Check every minute
+          });
+          console.log('Periodic sync registered');
+        } catch (error) {
+          console.log('Periodic sync not supported');
+        }
+      }
+      
+      // Listen for messages from service worker
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data.type === 'RESTORE_CONNECTIONS') {
+          // Dispatch custom event for app to handle
+          window.dispatchEvent(new CustomEvent('restore-connections', {
+            detail: event.data.state
+          }));
+        }
+      });
+      
       return registration;
     } catch (error) {
       console.error('Service Worker registration failed:', error);
@@ -54,4 +77,14 @@ export const registerServiceWorker = async () => {
     }
   }
   return null;
+};
+
+// Store connection state in service worker
+export const storeConnectionState = (state: any) => {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'STORE_CONNECTION_STATE',
+      state
+    });
+  }
 };

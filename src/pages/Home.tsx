@@ -57,7 +57,20 @@ const Home = () => {
         
         // Update connected peer IDs
         const allPeers = p2pManager.getAllPeersInfo();
-        setConnectedPeerDeviceIds(allPeers.filter(p => p.status === 'connected').map(p => p.deviceId));
+        const connectedIds = allPeers.filter(p => p.status === 'connected').map(p => p.deviceId);
+        setConnectedPeerDeviceIds(connectedIds);
+        
+        // Store connection state in service worker
+        import('@/lib/notifications').then(({ storeConnectionState }) => {
+          storeConnectionState({
+            deviceId: myDeviceId,
+            peers: allPeers.filter(p => p.status === 'connected').map(p => ({
+              peerId: p.peerId,
+              deviceId: p.deviceId,
+              peerName: p.peerName
+            }))
+          });
+        });
       });
 
       p2pManager.onDisconnect(async (peerId, peerDeviceId) => {
@@ -73,11 +86,20 @@ const Home = () => {
         const peerInfo = p2pManager.getPeerInfo(peerId);
         if (status === 'reconnecting') {
           toast.info(`Reconnecting to ${peerInfo?.peerName || 'peer'}...`);
+        } else if (status === 'connected') {
+          // Update connected peer IDs when status changes
+          const allPeers = p2pManager.getAllPeersInfo();
+          setConnectedPeerDeviceIds(allPeers.filter(p => p.status === 'connected').map(p => p.deviceId));
         }
       });
 
       // Restore persisted connections
       await p2pManager.restoreConnections();
+      
+      // Auto-reconnect to all saved peers
+      for (const peer of peers) {
+        await handleReconnect(peer.peer_device_id, peer.peer_name);
+      }
     };
 
     initializeDevice();
@@ -95,15 +117,27 @@ const Home = () => {
       }
     };
 
+    // Handle restore connections from service worker
+    const handleRestoreConnections = async (event: any) => {
+      const { deviceId: storedDeviceId, peers: storedPeers } = event.detail;
+      if (storedDeviceId === deviceId) {
+        for (const peer of storedPeers) {
+          await handleReconnect(peer.deviceId, peer.peerName);
+        }
+      }
+    };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('restore-connections', handleRestoreConnections);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('restore-connections', handleRestoreConnections);
       // Cleanup signaling listeners but don't destroy connections
       signalingCleanups.current.forEach(cleanup => cleanup());
       signalingCleanups.current.clear();
     };
-  }, []);
+  }, [deviceId]);
 
   const handlePermissionsComplete = () => {
     localStorage.setItem("hasSeenPermissions", "true");
@@ -111,27 +145,33 @@ const Home = () => {
     toast.success("Permissions configured!");
   };
 
-  const handleConnect = (mode: ConnectionMode, peerDeviceIdOrCode: string) => {
+  const handleConnect = async (mode: ConnectionMode, peerDeviceIdOrCode: string) => {
     // Find if this is a saved peer
     const savedPeer = savedPeers.find(p => p.peer_device_id === peerDeviceIdOrCode);
     const peerName = savedPeer?.peer_name || 'Unknown Device';
     const connectionCode = `${deviceId}-${peerDeviceIdOrCode}`;
 
+    // Check if already connected
+    const existingPeer = p2pManager.getAllPeersInfo().find(p => p.deviceId === peerDeviceIdOrCode);
+    if (existingPeer && existingPeer.status === 'connected') {
+      toast.info(`Already connected to ${peerName}`);
+      setConnectionModalOpen(false);
+      return;
+    }
+
     // Create a peer connection as initiator
     const peer = p2pManager.createConnection(peerDeviceIdOrCode, peerDeviceIdOrCode, peerName, true);
     
     peer.on('signal', async (signalData) => {
-      console.log('Sending signal data to peer...');
       try {
         await sendSignal(connectionCode, signalData, true);
-        toast.info(`Connecting to ${peerName}...`);
         
         // Setup signaling listener for response
         const cleanup = setupSignalingForConnection(peerDeviceIdOrCode, connectionCode, true);
         signalingCleanups.current.set(peerDeviceIdOrCode, cleanup);
       } catch (error) {
         console.error('Error sending signal:', error);
-        toast.error('Failed to establish connection');
+        toast.error('Connection failed. Please check your internet connection.');
       }
     });
 

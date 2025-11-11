@@ -32,7 +32,7 @@ export const sendSignal = async (
   try {
     const fieldName = isInitiator ? 'initiator_signal' : 'responder_signal';
     
-    await supabase
+    const { error } = await supabase
       .from('peer_connections')
       .upsert({
         connection_code: codeValidation.data,
@@ -40,7 +40,14 @@ export const sendSignal = async (
       }, {
         onConflict: 'connection_code',
       });
+    
+    if (error) {
+      console.error('Supabase error:', error);
+      toast.error('Connection failed. Please try again.');
+      throw error;
+    }
   } catch (error) {
+    console.error('Signal send error:', error);
     throw error;
   }
 };
