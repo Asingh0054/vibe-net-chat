@@ -29,7 +29,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-primary neon-text font-bold text-lg">
-            {!collapsed && "NeonShare"}
+            {!collapsed && "TeamXV IT"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

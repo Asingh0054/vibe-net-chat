@@ -6,7 +6,7 @@ self.addEventListener('push', (event) => {
     icon: '/favicon.ico',
     badge: '/favicon.ico',
     vibrate: [200, 100, 200],
-    tag: data.tag || 'neonshare-notification',
+    tag: data.tag || 'teamxvit-notification',
     requireInteraction: false,
     data: data.data
   };

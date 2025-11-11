@@ -1,8 +1,8 @@
-# NeonShare Mobile Setup
+# TeamXV IT Mobile Setup
 
 ## Running on Mobile Devices
 
-NeonShare supports native mobile features including WiFi Direct and Bluetooth through Capacitor.
+TeamXV IT supports native mobile features including WiFi Direct and Bluetooth through Capacitor.
 
 ### Prerequisites
 

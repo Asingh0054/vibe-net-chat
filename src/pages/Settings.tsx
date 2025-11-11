@@ -26,7 +26,7 @@ const Settings = () => {
     <div className="container mx-auto px-4 py-6 max-w-3xl">
       <div className="mb-6">
         <h1 className="text-3xl font-bold neon-text">Settings</h1>
-        <p className="text-muted-foreground">Customize your NeonShare experience</p>
+        <p className="text-muted-foreground">Customize your TeamXV IT experience</p>
       </div>
 
       <div className="space-y-6">

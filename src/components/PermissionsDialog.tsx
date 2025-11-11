@@ -99,7 +99,7 @@ export function PermissionsDialog({ open, onOpenChange, onComplete }: Permission
         <DialogHeader>
           <DialogTitle className="text-2xl neon-text">App Permissions</DialogTitle>
           <DialogDescription>
-            NeonShare needs these permissions to provide the best experience
+            TeamXV IT needs these permissions to provide the best experience
           </DialogDescription>
         </DialogHeader>
 
