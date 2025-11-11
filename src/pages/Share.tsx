@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Upload, File, Image, Video, Music, FileText, Download, X, CloudDownload } from "lucide-react";
 import { toast } from "sonner";
-import { p2pManager } from "@/lib/webrtc";
+import { p2pManager, FileTransferProgress as FileTransferProgressType } from "@/lib/webrtc";
 import { validateInput, fileSchema } from "@/lib/validation";
+import { FileTransferProgress } from "@/components/FileTransferProgress";
 
 interface SharedFile {
   id: string;
@@ -21,9 +22,32 @@ interface SharedFile {
 const Share = () => {
   const [files, setFiles] = useState<SharedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [activeTransfers, setActiveTransfers] = useState<FileTransferProgressType[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // Set up file transfer progress handler
+    const handleFileProgress = (progress: FileTransferProgressType) => {
+      setActiveTransfers((prev) => {
+        const existingIndex = prev.findIndex((t) => t.transferId === progress.transferId);
+        if (existingIndex >= 0) {
+          const updated = [...prev];
+          updated[existingIndex] = progress;
+          return updated;
+        }
+        return [...prev, progress];
+      });
+
+      // Remove completed transfers after a delay
+      if (progress.transferredBytes >= progress.size) {
+        setTimeout(() => {
+          setActiveTransfers((prev) => prev.filter((t) => t.transferId !== progress.transferId));
+        }, 3000);
+      }
+    };
+
+    p2pManager.onFileProgress(handleFileProgress);
+
     // Set up file receive handler
     const handleFileReceived = async (peerId: string, fileBlob: Blob, filename: string) => {
       const fileType = getFileType(fileBlob.type);
@@ -346,6 +370,18 @@ const Share = () => {
         </div>
         )}
       </div>
+
+      <FileTransferProgress transfers={activeTransfers.map(t => ({
+        id: t.transferId,
+        filename: t.filename,
+        size: t.size,
+        transferredBytes: t.transferredBytes,
+        direction: t.direction,
+        startTime: t.startTime,
+        peerName: t.peerName,
+        speed: t.transferredBytes > 0 ? (t.transferredBytes / ((Date.now() - t.startTime) / 1000)) : 0,
+        estimatedTimeRemaining: t.transferredBytes > 0 ? ((t.size - t.transferredBytes) / (t.transferredBytes / ((Date.now() - t.startTime) / 1000))) : 0
+      }))} />
     </div>
   );
 };

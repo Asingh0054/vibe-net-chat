@@ -3,6 +3,17 @@ import { showNotification } from './notifications';
 import { validateInput, chatMessageSchema, fileSchema, signalDataSchema, deviceIdSchema, peerNameSchema } from './validation';
 import { toast } from 'sonner';
 
+
+export interface FileTransferProgress {
+  transferId: string;
+  filename: string;
+  size: number;
+  transferredBytes: number;
+  direction: 'upload' | 'download';
+  startTime: number;
+  peerName: string;
+}
+
 export interface PeerConnection {
   peer: SimplePeer.Instance;
   peerId: string;
@@ -22,7 +33,9 @@ export class P2PManager {
   private onConnectCallback?: (peerId: string, deviceId: string, peerName: string) => void;
   private onDisconnectCallback?: (peerId: string, deviceId: string) => void;
   private onStatusChangeCallback?: (peerId: string, status: PeerConnection['status']) => void;
+  private onFileProgressCallback?: (progress: FileTransferProgress) => void;
   private reconnectIntervals: Map<string, NodeJS.Timeout> = new Map();
+  private activeTransfers: Map<string, FileTransferProgress> = new Map();
 
   constructor() {
     this.peers = new Map();
@@ -137,8 +150,71 @@ export class P2PManager {
       try {
         const message = JSON.parse(new TextDecoder().decode(data));
         
-        if (message.type === 'file') {
-          // Validate file metadata
+        if (message.type === 'file-start') {
+          // Initialize download progress
+          const transferProgress: FileTransferProgress = {
+            transferId: message.transferId,
+            filename: message.filename,
+            size: message.size,
+            transferredBytes: 0,
+            direction: 'download',
+            startTime: Date.now(),
+            peerName
+          };
+          
+          this.activeTransfers.set(message.transferId, transferProgress);
+          this.onFileProgressCallback?.(transferProgress);
+          
+          // Initialize chunk buffer
+          (this.activeTransfers.get(message.transferId) as any).chunks = new Array(message.totalChunks);
+          (this.activeTransfers.get(message.transferId) as any).receivedChunks = 0;
+          (this.activeTransfers.get(message.transferId) as any).totalChunks = message.totalChunks;
+          (this.activeTransfers.get(message.transferId) as any).mimeType = message.mimeType;
+        } else if (message.type === 'file-chunk') {
+          const transfer = this.activeTransfers.get(message.transferId) as any;
+          if (transfer) {
+            transfer.chunks[message.chunkIndex] = new Uint8Array(message.data);
+            transfer.receivedChunks++;
+            
+            // Update progress
+            transfer.transferredBytes = (transfer.receivedChunks / transfer.totalChunks) * transfer.size;
+            this.onFileProgressCallback?.(transfer);
+          }
+        } else if (message.type === 'file-complete') {
+          const transfer = this.activeTransfers.get(message.transferId) as any;
+          if (transfer && transfer.chunks) {
+            // Combine all chunks
+            const totalLength = transfer.chunks.reduce((acc: number, chunk: Uint8Array) => acc + chunk.byteLength, 0);
+            const combined = new Uint8Array(totalLength);
+            let offset = 0;
+            
+            for (const chunk of transfer.chunks) {
+              combined.set(chunk, offset);
+              offset += chunk.byteLength;
+            }
+            
+            const blob = new Blob([combined], { type: transfer.mimeType });
+            
+            // Mark as complete
+            transfer.transferredBytes = transfer.size;
+            this.onFileProgressCallback?.(transfer);
+            
+            // Call file callback
+            this.onFileCallback?.(peerId, blob, transfer.filename);
+            
+            // Show notification
+            showNotification('File Received', {
+              body: `${peerName} sent you a file: ${transfer.filename}`,
+              tag: `file-${peerId}-${Date.now()}`
+            });
+            
+            // Remove from active transfers after a delay
+            setTimeout(() => {
+              this.activeTransfers.delete(message.transferId);
+            }, 3000);
+          }
+        } else if (message.type === 'file') {
+          // Legacy file transfer (old format)
           const fileValidation = validateInput(fileSchema, {
             name: message.filename,
             size: message.size,
@@ -150,7 +226,6 @@ export class P2PManager {
             return;
           }
           
-          // Handle file metadata
           this.handleFileTransfer(peerId, message);
           showNotification('File Received', {
             body: `${peerName} sent you a file: ${message.filename}`,
@@ -161,7 +236,7 @@ export class P2PManager {
           if (message.text) {
             const msgValidation = validateInput(chatMessageSchema, message.text);
             if (!msgValidation.success) {
-              return; // Silently drop invalid messages
+              return;
             }
           }
           
@@ -172,7 +247,7 @@ export class P2PManager {
           });
         }
       } catch (error) {
-        // Silent fail - don't expose error details
+        // Silent fail
       }
     });
 
@@ -227,7 +302,7 @@ export class P2PManager {
     return false;
   }
 
-  // Send a file
+  // Send a file with progress tracking
   async sendFile(peerId: string, file: File) {
     // Validate file
     const validation = validateInput(fileSchema, {
@@ -246,16 +321,77 @@ export class P2PManager {
       return false;
     }
 
+    const transferId = `${peerId}-${Date.now()}`;
+    const chunkSize = 16384; // 16KB chunks for better progress tracking
     const arrayBuffer = await file.arrayBuffer();
-    const message = {
-      type: 'file',
+    const totalChunks = Math.ceil(arrayBuffer.byteLength / chunkSize);
+    
+    // Initialize transfer progress
+    const transferProgress: FileTransferProgress = {
+      transferId,
       filename: file.name,
       size: file.size,
-      data: Array.from(new Uint8Array(arrayBuffer))
+      transferredBytes: 0,
+      direction: 'upload',
+      startTime: Date.now(),
+      peerName: connection.peerName
     };
+    
+    this.activeTransfers.set(transferId, transferProgress);
+    this.onFileProgressCallback?.(transferProgress);
 
-    connection.peer.send(JSON.stringify(message));
-    return true;
+    try {
+      // Send file metadata first
+      connection.peer.send(JSON.stringify({
+        type: 'file-start',
+        transferId,
+        filename: file.name,
+        size: file.size,
+        mimeType: file.type,
+        totalChunks
+      }));
+
+      // Send file in chunks
+      for (let i = 0; i < totalChunks; i++) {
+        const start = i * chunkSize;
+        const end = Math.min(start + chunkSize, arrayBuffer.byteLength);
+        const chunk = arrayBuffer.slice(start, end);
+        
+        connection.peer.send(JSON.stringify({
+          type: 'file-chunk',
+          transferId,
+          chunkIndex: i,
+          data: Array.from(new Uint8Array(chunk))
+        }));
+
+        // Update progress
+        transferProgress.transferredBytes = end;
+        this.onFileProgressCallback?.(transferProgress);
+        
+        // Small delay to prevent overwhelming the connection
+        await new Promise(resolve => setTimeout(resolve, 10));
+      }
+
+      // Send completion message
+      connection.peer.send(JSON.stringify({
+        type: 'file-complete',
+        transferId
+      }));
+
+      // Mark as complete
+      transferProgress.transferredBytes = file.size;
+      this.onFileProgressCallback?.(transferProgress);
+      
+      // Remove from active transfers after a delay
+      setTimeout(() => {
+        this.activeTransfers.delete(transferId);
+      }, 3000);
+
+      return true;
+    } catch (error) {
+      this.activeTransfers.delete(transferId);
+      return false;
+    }
   }
 
   // Connect to a peer using signal data
@@ -358,6 +494,14 @@ export class P2PManager {
 
   onStatusChange(callback: (peerId: string, status: PeerConnection['status']) => void) {
     this.onStatusChangeCallback = callback;
+  }
+
+  onFileProgress(callback: (progress: FileTransferProgress) => void) {
+    this.onFileProgressCallback = callback;
+  }
+
+  getActiveTransfers(): FileTransferProgress[] {
+    return Array.from(this.activeTransfers.values());
   }
 
   // Get all connected peers
