@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { ConnectionMode } from "@/lib/webrtc";
 import { validateInput, connectionCodeSchema } from "@/lib/validation";
 import { WiFiPeerScanner } from "./WiFiPeerScanner";
+import { BluetoothPeerScanner } from "./BluetoothPeerScanner";
 
 interface ConnectionModalProps {
   open: boolean;
@@ -66,6 +67,13 @@ export function ConnectionModal({
     toast.success(`Connecting to ${deviceName} via WiFi Direct`);
     // In production, this would establish the WiFi Direct connection
     // and then proceed with WebRTC signaling
+    onOpenChange(false);
+  };
+
+  const handleBluetoothConnect = (deviceId: string, deviceName: string) => {
+    toast.success(`Connected to ${deviceName} via Bluetooth`);
+    // In production, this would establish the Bluetooth connection
+    // and then proceed with data transfer
     onOpenChange(false);
   };
 
@@ -154,19 +162,7 @@ export function ConnectionModal({
           </TabsContent>
 
           <TabsContent value="bluetooth" className="space-y-4">
-            <div className="text-center p-8 border-2 border-dashed border-secondary/50 rounded-lg neon-glow-sm">
-              <Bluetooth className="h-16 w-16 text-secondary mx-auto mb-4" />
-              <p className="text-muted-foreground mb-4">
-                Bluetooth requires native mobile app
-              </p>
-              <Button
-                onClick={() => toast.info("Bluetooth available on mobile app")}
-                variant="outline"
-                className="neon-border"
-              >
-                Learn More
-              </Button>
-            </div>
+            <BluetoothPeerScanner onConnect={handleBluetoothConnect} />
           </TabsContent>
         </Tabs>
       </DialogContent>
