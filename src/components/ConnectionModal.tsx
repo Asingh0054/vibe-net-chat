@@ -13,6 +13,7 @@ import { Wifi, Bluetooth, Globe, Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 import { ConnectionMode } from "@/lib/webrtc";
 import { validateInput, connectionCodeSchema } from "@/lib/validation";
+import { WiFiPeerScanner } from "./WiFiPeerScanner";
 
 interface ConnectionModalProps {
   open: boolean;
@@ -58,6 +59,13 @@ export function ConnectionModal({
     toast.success("Connecting to peer...");
     onConnect(selectedMode, validation.data);
     setCode("");
+    onOpenChange(false);
+  };
+
+  const handleWiFiConnect = (deviceAddress: string, deviceName: string) => {
+    toast.success(`Connecting to ${deviceName} via WiFi Direct`);
+    // In production, this would establish the WiFi Direct connection
+    // and then proceed with WebRTC signaling
     onOpenChange(false);
   };
 
@@ -142,19 +150,7 @@ export function ConnectionModal({
           </TabsContent>
 
           <TabsContent value="wifi" className="space-y-4">
-            <div className="text-center p-8 border-2 border-dashed border-primary/50 rounded-lg neon-glow-sm">
-              <Wifi className="h-16 w-16 text-primary mx-auto mb-4" />
-              <p className="text-muted-foreground mb-4">
-                WiFi Direct requires native mobile app
-              </p>
-              <Button
-                onClick={() => toast.info("WiFi Direct available on mobile app")}
-                variant="outline"
-                className="neon-border"
-              >
-                Learn More
-              </Button>
-            </div>
+            <WiFiPeerScanner onConnect={handleWiFiConnect} />
           </TabsContent>
 
           <TabsContent value="bluetooth" className="space-y-4">
